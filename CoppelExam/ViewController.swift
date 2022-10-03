@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController{
     let getTokenURL = "https://api.themoviedb.org/3/authentication/token/new?api_key=137b11a240f2116a7e7712d532aa0286"
     let validateLoginUrl = "https://api.themoviedb.org/3/authentication/token/validate_with_login?api_key=137b11a240f2116a7e7712d532aa0286"
 
@@ -143,7 +143,17 @@ class ViewController: UIViewController {
                     }
                     if(isSuccess==1){
                         print("Loggeado")
-                        //self.sendToMovies(token: token)
+                        /*guard let homeView = HomeViewController(nibName: "HomeViewController", bundle: nil) else {
+                           print("Controller not available")
+                           return
+                        }*/
+                        /*let VC = self.storyboard?.instantiateViewController(withIdentifier: "movies_view") as! MoviesViewController
+                        self.present(VC, animated: true, completion: nil)
+                        */
+                        /*let vc = self.storyboard?.instantiateViewController(withIdentifier: "movies_view") as! MoviesViewController
+                        self.navigationController?.pushViewController(vc, animated: true)
+                        self.present(vc, animated: true, completion: nil)*/
+                        self.sendToMovies(token: token)
                         
                     }
                     else{
@@ -173,11 +183,14 @@ class ViewController: UIViewController {
         //view.backgroundColor = .darkGray
     }
     func sendToMovies(token: String){
-        guard let vc = storyboard?.instantiateViewController(withIdentifier: "movies_view") as? MoviesViewController else {return}
         
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        print("entro sendToMovies")
+        DispatchQueue.main.async {
+            let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "movies_view") as? MoviesViewController
+            self.view.window?.rootViewController = homeViewController
+            self.view.window?.makeKeyAndVisible()
+        }
+       
     }
 
 }
-

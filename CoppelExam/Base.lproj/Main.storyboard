@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zpJ-CK-upr">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -59,7 +60,6 @@
                         <outlet property="Response" destination="s8b-z6-idO" id="nH1-ly-a62"/>
                         <outlet property="pass" destination="zPN-Kt-fxN" id="a5d-9i-kFY"/>
                         <outlet property="userName" destination="UWY-X7-qMA" id="Knz-3e-9Va"/>
-                        <segue destination="mAp-5N-oAX" kind="show" id="wnJ-rr-MIN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -73,10 +73,43 @@
                     <view key="view" contentMode="scaleToFill" id="OzY-Zj-X1Q">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TV Shows" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZP-Xz-n6J">
+                                <rect key="frame" x="16" y="47" width="358" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemFillColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GYr-eZ-CXM">
+                                <rect key="frame" x="0.0" y="76" width="390" height="2827"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleAspectFit" ambiguous="YES" axis="vertical" distribution="fillEqually" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="lWA-17-Kp1">
+                                        <rect key="frame" x="0.0" y="8" width="390" height="2897"/>
+                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="lWA-17-Kp1" firstAttribute="trailing" secondItem="QsR-8d-j6P" secondAttribute="trailing" constant="390" id="E3C-vo-oUE"/>
+                                    <constraint firstItem="lWA-17-Kp1" firstAttribute="bottom" secondItem="QsR-8d-j6P" secondAttribute="bottom" constant="2905" id="JuV-Rn-kcd"/>
+                                    <constraint firstItem="lWA-17-Kp1" firstAttribute="top" secondItem="QsR-8d-j6P" secondAttribute="top" constant="8" id="PKX-Et-I6T"/>
+                                    <constraint firstItem="lWA-17-Kp1" firstAttribute="width" secondItem="oAS-Ch-QK2" secondAttribute="width" id="SRf-5f-NVR"/>
+                                    <constraint firstItem="lWA-17-Kp1" firstAttribute="leading" secondItem="QsR-8d-j6P" secondAttribute="leading" id="Yo2-sL-dNT"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="QsR-8d-j6P"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="oAS-Ch-QK2"/>
+                            </scrollView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="95L-Gx-A1J"/>
                         <color key="backgroundColor" red="0.029808580880000001" green="0.10791280120000001" blue="0.13543769720000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Tv Show" id="aUu-rE-QTK"/>
+                    <connections>
+                        <outlet property="ScrollView" destination="GYr-eZ-CXM" id="8Nk-YQ-LzF"/>
+                        <outlet property="StackView" destination="lWA-17-Kp1" id="kXe-ki-C8g"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jKN-t8-JfA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -120,6 +153,9 @@
         <image name="themoviedb" width="512" height="512"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemFillColor">
+            <color red="0.47058823529411764" green="0.47058823529411764" blue="0.50196078431372548" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
