@@ -9,8 +9,6 @@ import UIKit
 
 class MoviesViewController: UIViewController {
 
-    
-    //@IBOutlet weak var TableView: UITableView!
     @IBOutlet weak var StackView: UIStackView!
     @IBOutlet weak var ScrollView: UIScrollView!
     let validateLoginUrl = "https://api.themoviedb.org/3/trending/all/day?api_key=137b11a240f2116a7e7712d532aa0286"
@@ -163,6 +161,7 @@ class MoviesViewController: UIViewController {
         print(sender.tag)
         DispatchQueue.main.async {
             let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "movie_details") as? MovieDetails
+            homeViewController?.IdMovie=String(sender.tag)
             self.view.window?.rootViewController = homeViewController
             self.view.window?.makeKeyAndVisible()
         }

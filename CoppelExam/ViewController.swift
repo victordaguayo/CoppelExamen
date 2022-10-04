@@ -143,16 +143,7 @@ class ViewController: UIViewController{
                     }
                     if(isSuccess==1){
                         print("Loggeado")
-                        /*guard let homeView = HomeViewController(nibName: "HomeViewController", bundle: nil) else {
-                           print("Controller not available")
-                           return
-                        }*/
-                        /*let VC = self.storyboard?.instantiateViewController(withIdentifier: "movies_view") as! MoviesViewController
-                        self.present(VC, animated: true, completion: nil)
-                        */
-                        /*let vc = self.storyboard?.instantiateViewController(withIdentifier: "movies_view") as! MoviesViewController
-                        self.navigationController?.pushViewController(vc, animated: true)
-                        self.present(vc, animated: true, completion: nil)*/
+                        
                         self.sendToMovies(token: token)
                         
                     }
