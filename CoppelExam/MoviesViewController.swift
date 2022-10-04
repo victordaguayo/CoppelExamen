@@ -10,6 +10,7 @@ import UIKit
 class MoviesViewController: UIViewController {
 
     
+    //@IBOutlet weak var TableView: UITableView!
     @IBOutlet weak var StackView: UIStackView!
     @IBOutlet weak var ScrollView: UIScrollView!
     let validateLoginUrl = "https://api.themoviedb.org/3/trending/all/day?api_key=137b11a240f2116a7e7712d532aa0286"
@@ -68,17 +69,45 @@ class MoviesViewController: UIViewController {
                 print(MyResult.poster_path ?? "No data")
                 DispatchQueue.main.async {
                     lastString = MyResult.poster_path ?? "no"
-                    let myImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+                    let myImageView = UIImageView(frame: CGRect(x: 10, y: 10, width: 100, height: 100))
+                    
                     myImageView.loadFrom(URLAddress: "https://image.tmdb.org/t/p/w500\(lastString)")
+                    myImageView.contentMode = .scaleAspectFit
                     let nameLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-                    nameLabel.center = CGPoint(x: 160, y: 285)
+                    nameLabel.center = CGPoint(x: 10, y: 10)
+                    nameLabel.textColor = .green
                     nameLabel.textAlignment = .center
-                    nameLabel.text = MyResult.poster_path
+                    nameLabel.text = MyResult.title ?? "no title"
+                    let dateLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 21))
+                    dateLabel.center = CGPoint(x: 9, y: 9)
+                    dateLabel.textColor = .green
+                    dateLabel.textAlignment = .left
+                    dateLabel.font = UIFont.systemFont(ofSize: 12)
+                    dateLabel.text = MyResult.release_date ?? "no date"
+                    let puntuacionLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 21))
+                    puntuacionLabel.textColor = .green
+                    puntuacionLabel.textAlignment = .left
+                    puntuacionLabel.text = String(MyResult.vote_average ?? 0.0)
+                    let overviewLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+                    overviewLabel.font = UIFont.systemFont(ofSize: 10)
+                    overviewLabel.textColor = .white
+                    overviewLabel.textAlignment = .justified
+                    overviewLabel.text = MyResult.overview ?? "no overview"
+                    let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
+                      button.backgroundColor = .green
+                    button.tintColor = .black
+                      button.setTitle("Descripción", for: .normal)
+                    button.tag = MyResult.id ?? 0
+                    button.addTarget(self, action: #selector(self.buttonAction), for: .touchUpInside)
                     
+
+
                     self.StackView.addArrangedSubview(myImageView)
-                    //self.view.addSubview(nameLabel)
-                    /*self.ScrollView.addSubview(self.nameLabel)*/
-                    
+                    self.StackView.addArrangedSubview(nameLabel)
+                    self.StackView.addArrangedSubview(dateLabel)
+                    self.StackView.addArrangedSubview(puntuacionLabel)
+                    self.StackView.addArrangedSubview(overviewLabel)
+                    self.StackView.addArrangedSubview(button)
                 }
             })
             
@@ -129,7 +158,16 @@ class MoviesViewController: UIViewController {
         let vote_average: Float?
     }
     
-    
+    @objc func buttonAction(sender: UIButton!) {
+      print("Button tapped")
+        print(sender.tag)
+        DispatchQueue.main.async {
+            let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "movie_details") as? MovieDetails
+            self.view.window?.rootViewController = homeViewController
+            self.view.window?.makeKeyAndVisible()
+        }
+        
+    }
 }
 extension UIImageView {
     func loadFrom(URLAddress: String) {
