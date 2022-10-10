@@ -53,7 +53,7 @@
                                 <rect key="frame" x="16" y="447" width="358" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" textContentType="password"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -116,54 +116,68 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jKN-t8-JfA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2549.2307692307691" y="-28.436018957345969"/>
+            <point key="canvasLocation" x="2568" y="-28"/>
         </scene>
-        <!--MoviesViewController-->
+        <!--Detalle-->
         <scene sceneID="FQJ-U3-l28">
             <objects>
-                <viewController storyboardIdentifier="movie_details" title="MoviesViewController" id="K4R-dx-pLe" customClass="MovieDetails" customModule="CoppelExam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="movie_details" id="K4R-dx-pLe" customClass="MovieDetails" customModule="CoppelExam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lkA-Jh-Crx">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XOk-Rr-IXM">
-                                <rect key="frame" x="0.0" y="81" width="390" height="763"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" distribution="fillProportionally" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="fH2-Kg-cpg">
-                                        <rect key="frame" x="0.0" y="8" width="390" height="755"/>
-                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </stackView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="fH2-Kg-cpg" firstAttribute="bottom" secondItem="aFA-v7-dF6" secondAttribute="bottom" id="D8h-wN-9TX"/>
-                                    <constraint firstItem="fH2-Kg-cpg" firstAttribute="top" secondItem="aFA-v7-dF6" secondAttribute="top" constant="8" id="L8l-hf-4YJ"/>
-                                    <constraint firstItem="fH2-Kg-cpg" firstAttribute="trailing" secondItem="aFA-v7-dF6" secondAttribute="trailing" id="V7B-Vm-hin"/>
-                                    <constraint firstItem="fH2-Kg-cpg" firstAttribute="leading" secondItem="aFA-v7-dF6" secondAttribute="leading" id="xT6-65-SQL"/>
-                                </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="0Wx-p7-kHp"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="aFA-v7-dF6"/>
-                            </scrollView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="G3S-0w-pKS">
+                                <rect key="frame" x="0.0" y="103" width="390" height="741"/>
+                                <color key="backgroundColor" red="0.04645213485" green="0.13316312429999999" blue="0.15488335489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3bB-fs-fdA">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="DAK-eo-YVW">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="wO7-SV-7UF">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D61-P0-vYh">
+                                <rect key="frame" x="0.0" y="60" width="390" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Regresar"/>
+                                <connections>
+                                    <action selector="buttonBack:" destination="K4R-dx-pLe" eventType="touchUpInside" id="dst-rw-Bms"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="VQ6-Oe-kQX"/>
                         <color key="backgroundColor" red="0.04645213485" green="0.13316312429999999" blue="0.15488335489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="XOk-Rr-IXM" firstAttribute="leading" secondItem="VQ6-Oe-kQX" secondAttribute="leading" id="006-Wb-m2Q"/>
-                            <constraint firstAttribute="bottom" secondItem="XOk-Rr-IXM" secondAttribute="bottom" id="YBO-6b-NfA"/>
-                            <constraint firstItem="XOk-Rr-IXM" firstAttribute="trailing" secondItem="VQ6-Oe-kQX" secondAttribute="trailing" id="aRH-lH-h5Z"/>
-                            <constraint firstItem="XOk-Rr-IXM" firstAttribute="top" secondItem="VQ6-Oe-kQX" secondAttribute="top" constant="34" id="cAP-6E-Ouw"/>
+                            <constraint firstItem="G3S-0w-pKS" firstAttribute="top" secondItem="D61-P0-vYh" secondAttribute="bottom" constant="8" symbolic="YES" id="BBo-KI-NUt"/>
+                            <constraint firstItem="D61-P0-vYh" firstAttribute="trailing" secondItem="VQ6-Oe-kQX" secondAttribute="trailing" id="Jjq-VF-uN4"/>
+                            <constraint firstAttribute="bottom" secondItem="G3S-0w-pKS" secondAttribute="bottom" id="KRx-gX-dDh"/>
+                            <constraint firstItem="G3S-0w-pKS" firstAttribute="leading" secondItem="VQ6-Oe-kQX" secondAttribute="leading" id="Ozr-mI-fvV"/>
+                            <constraint firstItem="G3S-0w-pKS" firstAttribute="top" secondItem="D61-P0-vYh" secondAttribute="bottom" constant="8" symbolic="YES" id="c8j-0R-E4w"/>
+                            <constraint firstItem="G3S-0w-pKS" firstAttribute="trailing" secondItem="VQ6-Oe-kQX" secondAttribute="trailing" id="kYH-1m-Nou"/>
+                            <constraint firstItem="D61-P0-vYh" firstAttribute="top" secondItem="VQ6-Oe-kQX" secondAttribute="top" constant="13" id="lBy-0v-97j"/>
+                            <constraint firstItem="D61-P0-vYh" firstAttribute="leading" secondItem="VQ6-Oe-kQX" secondAttribute="leading" id="yhV-UT-HeL"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Detalle" id="Syt-ga-nzG">
+                    <navigationItem key="navigationItem" title="Detalle" largeTitleDisplayMode="always" id="Syt-ga-nzG">
                         <barButtonItem key="backBarButtonItem" title="Back" id="wj7-As-z9u"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="ScrollView" destination="XOk-Rr-IXM" id="tq0-F4-AD2"/>
-                        <outlet property="StackView" destination="fH2-Kg-cpg" id="l0B-lz-esV"/>
+                        <outlet property="collectionView" destination="G3S-0w-pKS" id="Y2e-qh-S4i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tbt-mA-un8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3476.9230769230767" y="-28.436018957345969"/>
+            <point key="canvasLocation" x="3400" y="-28.436018957345969"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MLW-mH-BDb">

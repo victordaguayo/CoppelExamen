@@ -12,12 +12,12 @@ class MoviesViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     let validateLoginUrl = "https://api.themoviedb.org/3/trending/all/day?api_key=137b11a240f2116a7e7712d532aa0286"
     
-    var tituloArray = ["AAA"]
-    var fechaArray = ["BBB"]
-    var puntuacionArray = ["CCC"]
-    var descripcionArray = ["DDD"]
-    var imagenArray = ["EEE"]
-    var idMovieArray = [0]
+    var tituloArray : [String] = []
+    var fechaArray : [String] = []
+    var puntuacionArray : [String] = []
+    var descripcionArray : [String] = []
+    var imagenArray : [String] = []
+    var idMovieArray : [Int] = []
     var estimateWidth=160.0
     var cellMarginSize=16.0
     override func viewDidLoad() {
