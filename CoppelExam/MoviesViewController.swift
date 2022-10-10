@@ -9,14 +9,25 @@ import UIKit
 
 class MoviesViewController: UIViewController {
 
-    @IBOutlet weak var StackView: UIStackView!
-    @IBOutlet weak var ScrollView: UIScrollView!
+    @IBOutlet weak var collectionView: UICollectionView!
     let validateLoginUrl = "https://api.themoviedb.org/3/trending/all/day?api_key=137b11a240f2116a7e7712d532aa0286"
     
+    var tituloArray = ["AAA"]
+    var fechaArray = ["BBB"]
+    var puntuacionArray = ["CCC"]
+    var descripcionArray = ["DDD"]
+    var imagenArray = ["EEE"]
+    var idMovieArray = [0]
+    var estimateWidth=160.0
+    var cellMarginSize=16.0
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Movies"
         //view.backgroundColor = .systemPink
         // Do any additional setup after loading the view.
+        
+        //self.collectionView.delegate = self
+        
         let url = URL(string: validateLoginUrl)!
         var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -67,30 +78,7 @@ class MoviesViewController: UIViewController {
                 print(MyResult.poster_path ?? "No data")
                 DispatchQueue.main.async {
                     lastString = MyResult.poster_path ?? "no"
-                    let myImageView = UIImageView(frame: CGRect(x: 10, y: 10, width: 100, height: 100))
                     
-                    myImageView.loadFrom(URLAddress: "https://image.tmdb.org/t/p/w500\(lastString)")
-                    myImageView.contentMode = .scaleAspectFit
-                    let nameLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-                    nameLabel.center = CGPoint(x: 10, y: 10)
-                    nameLabel.textColor = .green
-                    nameLabel.textAlignment = .center
-                    nameLabel.text = MyResult.title ?? "no title"
-                    let dateLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 21))
-                    dateLabel.center = CGPoint(x: 9, y: 9)
-                    dateLabel.textColor = .green
-                    dateLabel.textAlignment = .left
-                    dateLabel.font = UIFont.systemFont(ofSize: 12)
-                    dateLabel.text = MyResult.release_date ?? "no date"
-                    let puntuacionLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 21))
-                    puntuacionLabel.textColor = .green
-                    puntuacionLabel.textAlignment = .left
-                    puntuacionLabel.text = String(MyResult.vote_average ?? 0.0)
-                    let overviewLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
-                    overviewLabel.font = UIFont.systemFont(ofSize: 10)
-                    overviewLabel.textColor = .white
-                    overviewLabel.textAlignment = .justified
-                    overviewLabel.text = MyResult.overview ?? "no overview"
                     let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
                       button.backgroundColor = .green
                     button.tintColor = .black
@@ -98,39 +86,34 @@ class MoviesViewController: UIViewController {
                     button.tag = MyResult.id ?? 0
                     button.addTarget(self, action: #selector(self.buttonAction), for: .touchUpInside)
                     
-
-
-                    self.StackView.addArrangedSubview(myImageView)
-                    self.StackView.addArrangedSubview(nameLabel)
-                    self.StackView.addArrangedSubview(dateLabel)
-                    self.StackView.addArrangedSubview(puntuacionLabel)
-                    self.StackView.addArrangedSubview(overviewLabel)
-                    self.StackView.addArrangedSubview(button)
+                    self.tituloArray.append(MyResult.title ?? "no title")
+                    self.fechaArray.append(MyResult.release_date ?? "no date")
+                    self.puntuacionArray.append(String(MyResult.vote_average ?? 0.0))
+                    self.descripcionArray.append(MyResult.overview ?? "no overview")
+                    self.imagenArray.append(lastString)
+                    self.idMovieArray.append(MyResult.id ?? 0)
+                    
                 }
             })
             
-            
             DispatchQueue.main.async {
-                /*let myImageView = UIImageView()
-                myImageView.loadFrom(URLAddress: "https://image.tmdb.org/t/p/w500\(lastString)")
-                self.StackView.addArrangedSubview(myImageView)*/
+                self.collectionView.delegate = self
+                self.collectionView.dataSource = self
                 
-                self.ScrollView.addSubview(self.StackView)
-                self.view.addSubview(self.ScrollView)
+                self.collectionView.register(UINib(nibName: "itemCell", bundle: nil), forCellWithReuseIdentifier: "itemCell")
+                
+                self.setupGridView()
+                
+                
             }
-            /*let res : [MyResult]?
-            
-            if ((json.results as? MyResult?) != nil){
-                res = json.results
-                res?.forEach({ MyResult
-                    in
-                    print(MyResult.poster_path ?? "No data")
-                    
-                })
-            }*/
-            
         }
         task.resume()
+        
+    }
+    func setupGridView(){
+        let flow = collectionView?.collectionViewLayout as! UICollectionViewFlowLayout
+        flow.minimumLineSpacing = CGFloat(self.cellMarginSize)
+        flow.minimumInteritemSpacing = CGFloat(self.cellMarginSize)
     }
     //https://image.tmdb.org/t/p/w500/ prefijo para imagenes
     struct Response: Codable{
@@ -168,18 +151,39 @@ class MoviesViewController: UIViewController {
         
     }
 }
-extension UIImageView {
-    func loadFrom(URLAddress: String) {
-        guard let url = URL(string: URLAddress) else {
-            return
-        }
+extension MoviesViewController:UICollectionViewDataSource{
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.tituloArray.count
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "itemCell", for: indexPath) as! itemCell
+        cell.setData(titulo: self.tituloArray[indexPath.row], fecha: self.fechaArray[indexPath.row], puntuacion: self.puntuacionArray[indexPath.row], descripcion: self.descripcionArray[indexPath.row], imagen: self.imagenArray[indexPath.row])
+        return cell
         
-        DispatchQueue.main.async { [weak self] in
-            if let imageData = try? Data(contentsOf: url) {
-                if let loadedImage = UIImage(data: imageData) {
-                        self?.image = loadedImage
-                }
-            }
-        }
+    }
+    
+    
+}
+extension MoviesViewController:UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = self.calculatewidth()
+        return CGSize(width: width, height: width*2)
+    }
+    func calculatewidth() -> CGFloat{
+        let estimatedWidth = CGFloat(estimateWidth)
+        let cellCount = floor(CGFloat(self.view.frame.size.width/estimatedWidth))
+        let margin = CGFloat(cellMarginSize*2)
+        let width = (self.view.frame.size.width - CGFloat(cellMarginSize)*(cellCount - 1) - margin)/cellCount
+        return width
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "movie_details") as? MovieDetails
+        vc?.IdMovie = String(self.idMovieArray[indexPath.row])
+        vc?.title = "Details: \(self.tituloArray[indexPath.row])"
+        
+        //self.navigationController?.pushViewController(vc!, animated: true)
+        self.view.window?.rootViewController = vc
+        self.view.window?.makeKeyAndVisible()
     }
 }

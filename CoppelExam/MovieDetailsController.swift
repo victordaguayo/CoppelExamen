@@ -17,7 +17,11 @@ class MovieDetails : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+        self.navigationController?.view.backgroundColor = UIColor.white
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(
+            title:"Detalles Movie", style: .plain, target: nil, action: nil)
+        
+        let button = UIButton(frame: CGRect(x: 10, y: 10, width: 100, height: 50))
         button.backgroundColor = .systemGreen
         button.tintColor = .black
           button.setTitle("Regresar", for: .normal)
@@ -75,7 +79,7 @@ class MovieDetails : UIViewController {
                     lastString = json.poster_path ?? "no"
                     let myImageView = UIImageView(frame: CGRect(x: 10, y: 10, width: 100, height: 100))
                     
-                    myImageView.loadFrom(URLAddress: "https://image.tmdb.org/t/p/w500\(lastString)")
+                    myImageView.loadFrom2(URLAddress: "https://image.tmdb.org/t/p/w500\(lastString)")
                     myImageView.contentMode = .scaleAspectFit
                     let nameLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
                     nameLabel.center = CGPoint(x: 10, y: 10)
@@ -102,7 +106,7 @@ class MovieDetails : UIViewController {
                     var lastStringBackDrop = json.backdrop_path ?? "no"
                     let myImageView2 = UIImageView(frame: CGRect(x: 10, y: 10, width: 100, height: 100))
                     
-                    myImageView2.loadFrom(URLAddress: "https://image.tmdb.org/t/p/w500\(lastStringBackDrop)")
+                    myImageView2.loadFrom2(URLAddress: "https://image.tmdb.org/t/p/w500\(lastStringBackDrop)")
                     myImageView2.contentMode = .scaleAspectFit
                     self.StackView.addArrangedSubview(myImageView2)
                     self.StackView.addArrangedSubview(nameLabel)
